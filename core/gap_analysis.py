@@ -11,7 +11,6 @@ class GapReport:
 class GapAnalyzer:
 
     def analyze(self, resume_skills, jd_skills):
-
         resume_set = {s.skill.name for s in resume_skills}
         jd_set = {s.skill.name for s in jd_skills}
 
