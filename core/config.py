@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from enum import Enum
-from typing import List
+from typing import List, Optional
 
 
 class SkillCategory(Enum):
@@ -33,16 +33,16 @@ class Skill:
     category: SkillCategory
     weight: float = 1.0
     strict_match: bool = True
-    variants: List[str] | None = None
+    variants: Optional[List[str]] = None
 
 
 class SkillTaxonomy:
 
     def __init__(self):
-
         self.skills = [
             Skill("python", SkillCategory.PROGRAMMING, variants=["py"]),
             Skill("java", SkillCategory.PROGRAMMING),
+            Skill("c++", SkillCategory.PROGRAMMING, variants=["cpp"]),
             Skill("sql", SkillCategory.DATA),
             Skill("pandas", SkillCategory.DATA),
             Skill("numpy", SkillCategory.DATA),
