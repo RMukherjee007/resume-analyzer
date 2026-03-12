@@ -66,18 +66,6 @@ Missing Skills: Docker, Kubernetes, AWS
 
 ---
 
-# Interface Preview
-
-<p align="center">
-<img src="screenshots/dashboard.png" width="800">
-</p>
-
-<p align="center">
-<img src="screenshots/skill-gap-analysis.png" width="800">
-</p>
-
----
-
 # Key Features
 
 ## PDF Resume Parsing
@@ -438,6 +426,7 @@ MIT License
 # Author
 
 Developed as a machine learning and NLP project demonstrating automated document analysis, hybrid similarity search, and algorithm-driven candidate matching.
+
 
 
 
