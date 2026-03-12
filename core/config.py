@@ -33,7 +33,7 @@ class Skill:
     category: SkillCategory
     weight: float = 1.0
     strict_match: bool = True
-    variants: List[str] = None
+    variants: List[str] | None = None
 
 
 class SkillTaxonomy:
@@ -41,7 +41,6 @@ class SkillTaxonomy:
     def __init__(self):
 
         self.skills = [
-
             Skill("python", SkillCategory.PROGRAMMING, variants=["py"]),
             Skill("java", SkillCategory.PROGRAMMING),
             Skill("sql", SkillCategory.DATA),
@@ -52,7 +51,6 @@ class SkillTaxonomy:
             Skill("kubernetes", SkillCategory.DEVOPS),
             Skill("react", SkillCategory.FRAMEWORK),
             Skill("node.js", SkillCategory.FRAMEWORK, variants=["nodejs"]),
-
         ]
 
     def __iter__(self):
