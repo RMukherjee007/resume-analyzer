@@ -1,18 +1,19 @@
 import streamlit as st
-import pandas as pd
-import plotly.express as px
-from pathlib import Path
-import tempfile
 import os
+import tempfile
+from pathlib import Path
 
-# Assume core files are properly imported here 
-from core.pdf_parser import PDFParser
-from core.preprocessing import TextPreprocessor
-from core.similarity import SimilarityEngine
-from core.skills import SkillExtractor
+from core import (
+    PDFParser,
+    TextPreprocessor,
+    SimilarityEngine,
+    SkillExtractor,
+    GapAnalyzer
+)
 
 st.set_page_config(page_title="AI Resume Analyzer", layout="wide")
 
+# Cache heavy machine learning models
 @st.cache_resource
 def load_engines():
     return SimilarityEngine(), SkillExtractor()
@@ -20,8 +21,9 @@ def load_engines():
 similarity_engine, skill_extractor = load_engines()
 parser = PDFParser()
 preprocessor = TextPreprocessor()
+gap_analyzer = GapAnalyzer()
 
-st.title("AI Resume Analyzer")
+st.title("AI Resume Analyzer 🚀")
 
 uploaded = st.file_uploader("Upload Resume", type=["pdf"])
 jd = st.text_area("Paste Job Description", height=200)
@@ -33,37 +35,47 @@ if st.button("Analyze Candidate", type="primary"):
         with st.spinner("Processing documents..."):
             pdf_path = None
             try:
+                # Securely handle file upload
                 with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp:
                     tmp.write(uploaded.read())
                     pdf_path = Path(tmp.name)
 
+                # Parsing and Preprocessing
                 resume_text = preprocessor.process(parser.extract_text(pdf_path))
                 jd_clean = preprocessor.process(jd)
 
-                resume_skills = skill_extractor.extract_skills(resume_text)
-                jd_skills = skill_extractor.extract_skills(jd_clean)
-                similarity = similarity_engine.compute_similarity(resume_text, jd_clean)
-
-                # Gap Analysis Logic
-                resume_skill_names = {s.skill.name for s in resume_skills}
-                jd_skill_names = {s.skill.name for s in jd_skills}
-                matched_count = len(resume_skill_names & jd_skill_names)
-                
-                skill_coverage = matched_count / max(len(jd_skill_names), 1)
-                fit_score = (0.60 * similarity.overall_score) + (0.40 * skill_coverage)
-
-                # UI Display
-                col1, col2, col3 = st.columns(3)
-                col1.metric("Candidate Fit Score", f"{fit_score:.2f}")
-                col2.metric("Semantic Match", f"{similarity.overall_score:.2f}")
-                col3.metric("Skill Coverage", f"{skill_coverage:.2f}")
-                
-                missing_skills = [name.title() for name in jd_skill_names if name not in resume_skill_names]
-                if missing_skills:
-                    st.warning(f"**Missing Skills:** {', '.join(missing_skills)}")
+                if not resume_text.strip():
+                    st.error("Could not extract readable text from the PDF.")
                 else:
-                    st.success("Candidate matches all extracted JD skills.")
+                    # Extraction and Scoring
+                    resume_skills = skill_extractor.extract_skills(resume_text)
+                    jd_skills = skill_extractor.extract_skills(jd_clean)
+                    
+                    similarity = similarity_engine.compute_similarity(resume_text, jd_clean)
+                    report = gap_analyzer.analyze(resume_skills, jd_skills)
+
+                    # Final Fit Score Calculation
+                    fit_score = (0.60 * similarity.overall_score) + (0.40 * report.coverage)
+
+                    # Metrics Display
+                    col1, col2, col3 = st.columns(3)
+                    col1.metric("Candidate Fit Score", f"{fit_score:.2f}")
+                    col2.metric("Semantic Match", f"{similarity.overall_score:.2f}")
+                    col3.metric("Skill Coverage", f"{report.coverage:.2f}")
+                    
+                    st.write(f"**Engine Interpretation:** {similarity.interpretation}")
+                    st.divider()
+
+                    # Gap Analysis Display
+                    st.subheader("Skill Gap Analysis")
+                    if report.missing_skills:
+                        st.warning(f"**Missing Skills:** {', '.join(report.missing_skills)}")
+                    elif jd_skills:
+                        st.success("Candidate matches all extracted JD skills!")
+                    else:
+                        st.info("No specific technical skills identified in the Job Description.")
 
             finally:
+                # Ensure temporary file is always deleted
                 if pdf_path and pdf_path.exists():
                     os.remove(pdf_path)
