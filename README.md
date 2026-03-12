@@ -18,9 +18,6 @@
 An AI-powered system that analyzes resumes against job descriptions using semantic similarity, skill extraction, and automated gap detection.
 </p>
 
-<p align="center">
-<img src="https://github-readme-stats.vercel.app/api/pin/?username=yourusername&repo=resume-analyzer">
-</p>
 
 ---
 
@@ -441,6 +438,7 @@ MIT License
 # Author
 
 Developed as a machine learning and NLP project demonstrating automated document analysis, hybrid similarity search, and algorithm-driven candidate matching.
+
 
 
 
