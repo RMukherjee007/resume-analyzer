@@ -1,9 +1,10 @@
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
-from sentence_transformers import SentenceTransformer
 import numpy as np
 from dataclasses import dataclass
 from typing import List, Tuple
+
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+from sentence_transformers import SentenceTransformer
 
 
 @dataclass
@@ -27,7 +28,6 @@ class SimilarityEngine:
             token_pattern=r"(?u)\b[\w\+\#\.]+\b"
         )
 
-        # semantic model
         self.embedder = SentenceTransformer("all-MiniLM-L6-v2")
 
     def compute_similarity(self, resume_text, jd_text):
@@ -36,7 +36,8 @@ class SimilarityEngine:
 
         tfidf = self.vectorizer.fit_transform(docs)
 
-        resume_vec, jd_vec = tfidf[0], tfidf[1]
+        resume_vec = tfidf[0]
+        jd_vec = tfidf[1]
 
         tfidf_score = cosine_similarity(resume_vec, jd_vec)[0][0]
 
