@@ -208,13 +208,6 @@ The system is designed using **modular NLP components**, making it easy to exten
 
 ---
 
-# Workflow Graph
-
-<p align="center">
-<img src="docs/workflow-graph.png" width="850">
-</p>
-
----
 
 # Project Structure
 
@@ -423,6 +416,7 @@ MIT License
 # Author
 
 Developed as a machine learning and NLP project demonstrating automated document analysis, hybrid similarity search, and algorithm-driven candidate matching.
+
 
 
 
