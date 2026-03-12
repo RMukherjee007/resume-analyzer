@@ -6,3 +6,6 @@ rapidfuzz
 numpy
 pandas
 torch
+plotly
+google-generativeai
+pytest
