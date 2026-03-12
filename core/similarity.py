@@ -24,8 +24,7 @@ class SimilarityEngine:
             ngram_range=(1, 2),
             max_features=6000,
             stop_words="english",
-            sublinear_tf=True,
-            token_pattern=r"(?u)\b[\w\+\#\.]+\b"
+            sublinear_tf=True
         )
 
         self.embedder = SentenceTransformer("all-MiniLM-L6-v2")
