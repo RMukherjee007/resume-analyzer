@@ -1,10 +1,9 @@
 from pathlib import Path
 import pdfplumber
 
-
 class PDFParser:
-
-    def extract_text(self, pdf_path: Path):
+    """Handles the extraction of raw text from PDF documents."""
+    def extract_text(self, pdf_path: Path) -> str:
         text_parts = []
         with pdfplumber.open(pdf_path) as pdf:
             for page in pdf.pages:
