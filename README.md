@@ -1,64 +1,90 @@
 # AI Resume Analyzer
 
-An intelligent resume analysis system that evaluates how well a candidate’s resume matches a job description.
-The system extracts resume content from PDFs, analyzes technical skills, computes semantic similarity with the job description, and highlights missing skills to help improve candidate–job alignment.
+![Python](https://img.shields.io/badge/Python-3.10+-blue)
+![Streamlit](https://img.shields.io/badge/Streamlit-App-red)
+![NLP](https://img.shields.io/badge/NLP-Resume%20Analysis-green)
+![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
-This project demonstrates a **modular NLP pipeline** combining text preprocessing, semantic similarity, skill extraction, and gap analysis to automate resume screening.
+An intelligent **AI-powered resume analysis system** that evaluates how well a candidate’s resume matches a job description.
+It automatically extracts resume content from PDFs, analyzes technical skills, computes semantic similarity with the job description, and identifies skill gaps to improve candidate–job alignment.
 
----
-
-## Overview
-
-Recruiters often spend significant time manually reviewing resumes and comparing them with job descriptions. This project automates much of that process by analyzing resumes using Natural Language Processing and structured skill taxonomies.
-
-The analyzer performs the following tasks:
-
-* Extracts text from PDF resumes
-* Cleans and preprocesses resume and job description text
-* Detects resume sections such as experience, projects, and skills
-* Computes semantic similarity between resume and job description
-* Extracts technical skills using exact and fuzzy matching
-* Identifies missing or weak skills through gap analysis
-* Produces a candidate fit score to summarize alignment
-
-The system can process resumes quickly and provides interpretable metrics to assist recruiters or candidates in understanding skill alignment.
+The project demonstrates a **modular NLP pipeline** combining text preprocessing, semantic similarity, skill extraction, and gap analysis to automate resume screening.
 
 ---
 
-## Key Features
+# Demo
 
-### Resume Parsing
+Upload a resume and paste a job description to receive:
 
-Uses `pdfplumber` to reliably extract text from multi-page PDF resumes.
+* Resume–Job similarity score
+* Extracted technical skills
+* Missing skills
+* Skill coverage percentage
+* Candidate fit score
 
-### Text Preprocessing
+The system produces interpretable results to assist recruiters or candidates in evaluating role alignment.
 
-Normalizes text by removing noise such as URLs and emails while preserving technical tokens like `C++`, `Node.js`, or `C#`.
+---
 
-### Section Detection
+# Features
 
-Detects common resume sections (skills, experience, projects) to improve context-aware skill extraction.
+### PDF Resume Parsing
+
+Extracts structured text from multi-page resumes using **PDFPlumber**.
+
+### Intelligent Text Preprocessing
+
+Cleans resumes while preserving technical tokens such as:
+
+```
+C++
+Node.js
+C#
+```
+
+### Resume Section Detection
+
+Detects common sections including:
+
+* Skills
+* Experience
+* Projects
+* Education
+
+This improves context-aware skill extraction.
 
 ### Hybrid Similarity Engine
 
-Combines two similarity methods:
+The analyzer combines two complementary similarity methods:
 
-* **TF-IDF cosine similarity** for keyword overlap
-* **Semantic embeddings (Sentence Transformers)** for conceptual similarity
+**TF-IDF Similarity**
 
-This hybrid approach improves matching accuracy between resumes and job descriptions.
+* Detects keyword overlap
+* Captures skill-specific terms
 
-### Skill Extraction Engine
+**Semantic Embeddings**
 
-Identifies skills using a taxonomy with multiple matching strategies:
+* Detects conceptual similarity
+* Handles variations such as:
+
+```
+Machine Learning ≈ ML
+Artificial Intelligence ≈ AI
+```
+
+### Multi-Strategy Skill Extraction
+
+Skills are detected using multiple matching strategies:
 
 * Exact matching
 * Variant matching
-* Rapid fuzzy matching
+* Fuzzy matching (RapidFuzz)
 
 ### Skill Gap Analysis
 
-Compares extracted resume skills with job description requirements to identify:
+Identifies missing skills required by the job description.
+
+Outputs include:
 
 * Matched skills
 * Missing skills
@@ -66,28 +92,30 @@ Compares extracted resume skills with job description requirements to identify:
 
 ### Candidate Fit Score
 
-Generates a final ranking score combining:
+A final ranking score combines:
 
-* Resume–JD similarity
-* Skill coverage
-* Matching skill confidence
+```
+55% Resume–JD similarity
+30% Skill coverage
+15% Skill confidence
+```
+
+This produces an interpretable **candidate fit score**.
 
 ---
 
-## System Architecture
-
-The project follows a modular architecture designed for clarity and scalability.
+# System Architecture
 
 ```
 Resume PDF
    ↓
-PDF Parser
+PDF Parsing
    ↓
 Text Preprocessing
    ↓
 Section Detection
    ↓
-Similarity Engine
+Hybrid Similarity Engine
    ↓
 Skill Extraction
    ↓
@@ -96,9 +124,11 @@ Gap Analysis
 Candidate Fit Score
 ```
 
+This modular design makes the system easy to extend and maintain.
+
 ---
 
-## Project Structure
+# Project Structure
 
 ```
 resume-analyzer
@@ -118,19 +148,24 @@ resume-analyzer
 
 ---
 
-## Installation
+# Installation
 
-Clone the repository and install dependencies.
+Clone the repository:
 
 ```
 git clone https://github.com/yourusername/resume-analyzer.git
 cd resume-analyzer
+```
+
+Install dependencies:
+
+```
 pip install -r requirements.txt
 ```
 
 ---
 
-## Requirements
+# Requirements
 
 ```
 streamlit
@@ -145,64 +180,68 @@ torch
 
 ---
 
-## Running the Application
+# Running the Application
 
-Launch the Streamlit interface:
+Start the Streamlit app:
 
 ```
 streamlit run app.py
 ```
 
-Then open the local web interface in your browser.
+Then open the local interface in your browser.
 
 Steps:
 
-1. Upload a resume in PDF format
+1. Upload a resume (PDF)
 2. Paste the job description
 3. Click **Analyze**
 
-The dashboard will display similarity scores, skill coverage, and a candidate fit score.
+---
+
+# Example Output
+
+The system produces a dashboard containing:
+
+**Match Score**
+
+```
+Resume–JD Similarity: 0.82
+```
+
+**Skill Coverage**
+
+```
+Matched Skills: 8
+Missing Skills: 3
+Coverage: 0.72
+```
+
+**Candidate Fit Score**
+
+```
+0.79
+```
+
+These metrics help recruiters quickly assess candidate suitability.
 
 ---
 
-## Example Output
+# Performance
 
-The analyzer provides metrics such as:
+The system is optimized for efficient analysis.
 
-* Resume–Job similarity score
-* Matched skills
-* Missing skills
-* Skill coverage percentage
-* Candidate fit score
+Typical performance metrics:
 
-These metrics help quickly identify how well a resume aligns with a given role.
-
----
-
-## Performance
-
-With lightweight NLP components and efficient skill matching, the system can process resumes rapidly.
-
-Typical performance:
-
-* Skill detection accuracy: ~94–96%
-* Resume–JD matching reliability: ~90%+
-* Manual screening reduction: ~90%
-* Batch processing throughput: up to ~800 resumes per minute
+| Metric                         | Value                |
+| ------------------------------ | -------------------- |
+| Skill detection accuracy       | ~94–96%              |
+| Resume–JD matching reliability | ~90%+                |
+| Manual screening reduction     | ~90%                 |
+| Processing throughput          | ~700–900 resumes/min |
 
 ---
 
-## Use Cases
-
-* Resume screening automation
-* Candidate self-assessment against job roles
-* Resume improvement suggestions
-* Educational demonstration of NLP pipelines
-* Internship-level machine learning/NLP project
-
----
-
-## Technologies Used
+# Technologies Used
 
 * Python
 * Streamlit
@@ -210,23 +249,43 @@ Typical performance:
 * Sentence Transformers
 * RapidFuzz
 * PDFPlumber
+* NumPy
 
 ---
 
-## Future Improvements
+# Use Cases
 
-Possible extensions include:
+This project can be used for:
+
+* Resume screening automation
+* Candidate self-assessment
+* Resume improvement suggestions
+* Educational NLP projects
+* Internship portfolio demonstration
+
+---
+
+# Future Improvements
+
+Potential enhancements include:
 
 * Resume ranking for multiple candidates
-* Experience extraction and weighting
+* Experience extraction
 * Named entity recognition for company and role detection
-* Skill ontology expansion
-* Vector database search for candidate retrieval
+* Vector database candidate search
+* Resume recommendation system
 
 ---
 
-## Author
+# License
 
-Developed as a machine learning and NLP project to demonstrate automated resume analysis and job matching techniques.
+MIT License
+
+---
+
+# Author
+
+Developed as a machine learning and NLP project demonstrating automated resume analysis and job matching techniques.
+
 
 
