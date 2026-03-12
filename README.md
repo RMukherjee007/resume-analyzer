@@ -358,13 +358,6 @@ Each component is modular and independently testable.
 <img src="https://github-readme-streak-stats.herokuapp.com/?user=yourusername">
 </p>
 
----
-
-# Repository Activity Graph
-
-<p align="center">
-<img src="https://activity-graph.herokuapp.com/graph?username=yourusername">
-</p>
 
 ---
 
@@ -412,6 +405,7 @@ MIT License
 # Author
 
 Developed as a machine learning and NLP project demonstrating automated document analysis, hybrid similarity search, and algorithm-driven candidate matching.
+
 
 
 
