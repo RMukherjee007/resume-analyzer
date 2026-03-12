@@ -337,10 +337,6 @@ Steps:
 
 # Auto-Generated API Documentation
 
-<p align="center">
-<img src="docs/api-diagram.png" width="800">
-</p>
-
 Core modules:
 
 ```
@@ -416,6 +412,7 @@ MIT License
 # Author
 
 Developed as a machine learning and NLP project demonstrating automated document analysis, hybrid similarity search, and algorithm-driven candidate matching.
+
 
 
 
