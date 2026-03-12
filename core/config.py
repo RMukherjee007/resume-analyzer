@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from enum import Enum
+from typing import List
 
 
 class SkillCategory(Enum):
@@ -22,7 +23,7 @@ CATEGORY_WEIGHTS = {
     SkillCategory.DATA: 1.1,
     SkillCategory.CLOUD: 1.1,
     SkillCategory.DEVOPS: 0.9,
-    SkillCategory.FRAMEWORK: 1.0
+    SkillCategory.FRAMEWORK: 1.0,
 }
 
 
@@ -31,4 +32,28 @@ class Skill:
     name: str
     category: SkillCategory
     weight: float = 1.0
-    variants: list[str] | None = None
+    strict_match: bool = True
+    variants: List[str] = None
+
+
+class SkillTaxonomy:
+
+    def __init__(self):
+
+        self.skills = [
+
+            Skill("python", SkillCategory.PROGRAMMING, variants=["py"]),
+            Skill("java", SkillCategory.PROGRAMMING),
+            Skill("sql", SkillCategory.DATA),
+            Skill("pandas", SkillCategory.DATA),
+            Skill("numpy", SkillCategory.DATA),
+            Skill("aws", SkillCategory.CLOUD, variants=["amazon web services"]),
+            Skill("docker", SkillCategory.DEVOPS),
+            Skill("kubernetes", SkillCategory.DEVOPS),
+            Skill("react", SkillCategory.FRAMEWORK),
+            Skill("node.js", SkillCategory.FRAMEWORK, variants=["nodejs"]),
+
+        ]
+
+    def __iter__(self):
+        return iter(self.skills)
