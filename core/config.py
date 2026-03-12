@@ -2,30 +2,12 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import List, Optional
 
-
 class SkillCategory(Enum):
     PROGRAMMING = "programming"
     DATA = "data"
     CLOUD = "cloud"
     DEVOPS = "devops"
     FRAMEWORK = "framework"
-
-
-class Priority(Enum):
-    CRITICAL = "Critical"
-    HIGH = "High"
-    MEDIUM = "Medium"
-    LOW = "Low"
-
-
-CATEGORY_WEIGHTS = {
-    SkillCategory.PROGRAMMING: 1.2,
-    SkillCategory.DATA: 1.1,
-    SkillCategory.CLOUD: 1.1,
-    SkillCategory.DEVOPS: 0.9,
-    SkillCategory.FRAMEWORK: 1.0,
-}
-
 
 @dataclass
 class Skill:
@@ -35,9 +17,8 @@ class Skill:
     strict_match: bool = True
     variants: Optional[List[str]] = None
 
-
 class SkillTaxonomy:
-
+    """Defines the static taxonomy of skills to extract from documents."""
     def __init__(self):
         self.skills = [
             Skill("python", SkillCategory.PROGRAMMING, variants=["py"]),
@@ -48,8 +29,8 @@ class SkillTaxonomy:
             Skill("numpy", SkillCategory.DATA),
             Skill("aws", SkillCategory.CLOUD, variants=["amazon web services"]),
             Skill("docker", SkillCategory.DEVOPS),
-            Skill("kubernetes", SkillCategory.DEVOPS),
-            Skill("react", SkillCategory.FRAMEWORK),
+            Skill("kubernetes", SkillCategory.DEVOPS, variants=["k8s"]),
+            Skill("react", SkillCategory.FRAMEWORK, variants=["reactjs"]),
             Skill("node.js", SkillCategory.FRAMEWORK, variants=["nodejs"]),
         ]
 
