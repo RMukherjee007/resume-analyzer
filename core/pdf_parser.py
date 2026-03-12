@@ -6,7 +6,7 @@ class PDFParser:
 
     def extract_text(self, pdf_path: Path):
 
-        text_parts = []
+        text = []
 
         with pdfplumber.open(pdf_path) as pdf:
 
@@ -15,6 +15,6 @@ class PDFParser:
                 content = page.extract_text()
 
                 if content:
-                    text_parts.append(content)
+                    text.append(content)
 
-        return "\n".join(text_parts)
+        return "\n".join(text)
