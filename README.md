@@ -179,9 +179,6 @@ This produces an **interpretable ranking metric for candidate evaluation**.
 
 # System Architecture
 
-<p align="center">
-<img src="docs/architecture.png" width="850">
-</p>
 
 ```
 Resume PDF + Job Description
@@ -426,6 +423,7 @@ MIT License
 # Author
 
 Developed as a machine learning and NLP project demonstrating automated document analysis, hybrid similarity search, and algorithm-driven candidate matching.
+
 
 
 
