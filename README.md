@@ -351,16 +351,6 @@ Each component is modular and independently testable.
 
 ---
 
-# GitHub Metrics
-
-<p align="center">
-<img src="https://github-readme-stats.vercel.app/api?username=yourusername&show_icons=true">
-<img src="https://github-readme-streak-stats.herokuapp.com/?user=yourusername">
-</p>
-
-
----
-
 # Download Statistics
 
 <p align="center">
