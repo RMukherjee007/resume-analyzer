@@ -351,13 +351,6 @@ Each component is modular and independently testable.
 
 ---
 
-# Download Statistics
-
-<p align="center">
-<img src="https://img.shields.io/github/downloads/yourusername/resume-analyzer/total">
-</p>
-
----
 
 # Use Cases
 
